@@ -5,7 +5,7 @@
 			"name": "Python: Arquivo Atual",
 			"type": "python",
 			"request": "launch",
-			"program": "${file}",
+			"program": "TotvsService3.py",
 			"console": "integratedTerminal"
 		}
 	]

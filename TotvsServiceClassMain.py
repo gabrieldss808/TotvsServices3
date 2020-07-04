@@ -1,15 +1,17 @@
-from tkinter import Tk
 from utils.topMenu import TopMenu
-from utils.bottomMenu import BottomMenu
+from utils.bottomPanels import BottomPanels
+from tkinter.ttk import Button
+from tkinter import PanedWindow
+from tkinter import VERTICAL
+from tkinter import Tk
 from tkinter import BOTH
-from tkinter.ttk import Button, Style
 from threading import Thread
-
 
 class TotvsService3(Tk):
 
     topMenu = TopMenu   
-    bottomMenu = BottomMenu
+    BottomPanels = BottomPanels
+    linhaDeSeparacao = PanedWindow
 
     def configTotvsServiceLayoyt(self):
 
@@ -24,7 +26,7 @@ class TotvsService3(Tk):
         self.LoadPainels()
 
         self.bind("<Configure>",self.callback)
-    
+              
     def Positioninthecenter(self):
 
         largura = 600
@@ -45,23 +47,32 @@ class TotvsService3(Tk):
         self.topMenu.AdButtons()
         self.topMenu.pack()
 
-        self.bottomMenu = BottomMenu(self)
-        self.bottomMenu.pack()
+        self.linhaDeSeparacao = PanedWindow()
+        self.linhaDeSeparacao.pack()
 
-        self.configMenu()
+        self.BottomPanels = BottomPanels(self)
+
+        self.BottomPanels.addGroups()
         
+        self.BottomPanels.pack()
 
+        self.configPainels()
+        
     def callback(self,event):
 
-        self.configMenu()
-        
+        self.configPainels()
 
-    def configMenu(self):
+    def configPainels(self):
 
         self.topMenu["height"] = self.winfo_height()*0.12
         self.topMenu["width"] = self.winfo_width()
         self.topMenu["bg"] = "#616161"
 
-        self.bottomMenu["height"] = self.winfo_height()*0.88
-        self.bottomMenu["width"] = self.winfo_width()
-        self.bottomMenu["bg"] = "#4285F4"
+        self.linhaDeSeparacao["height"] = 4
+        self.linhaDeSeparacao["width"] = self.winfo_width()
+        self.linhaDeSeparacao["bg"] = "#9E9E9E"
+
+
+        self.BottomPanels["height"] = self.winfo_height()*0.88
+        self.BottomPanels["width"] = self.winfo_width()
+        self.BottomPanels["bg"] = "#616161"
