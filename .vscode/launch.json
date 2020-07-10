@@ -5,6 +5,13 @@
 			"name": "Python: Arquivo Atual",
 			"type": "python",
 			"request": "launch",
+			"program": "${file}",
+			"console": "integratedTerminal"
+		},
+		{
+			"name": "Debug Totvs Service 3",
+			"type": "python",
+			"request": "launch",
 			"program": "TotvsService3.py",
 			"console": "integratedTerminal"
 		}

@@ -1,5 +1,5 @@
-import os
 import sys
+from os.path import abspath, join
 from tkinter import PanedWindow
 from tkinter import Button
 from tkinter import PhotoImage
@@ -54,6 +54,6 @@ class TopMenu(PanedWindow):
         try:
             base_path = sys._MEIPASS
         except Exception:
-            base_path = os.path.abspath("./icons")
+            base_path = abspath("./icons")
 
-        return os.path.join(base_path, relative_path)
+        return join(base_path, relative_path)

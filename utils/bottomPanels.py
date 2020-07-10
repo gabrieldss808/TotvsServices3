@@ -3,18 +3,20 @@ from tkinter import Scrollbar
 from tkinter import Canvas
 from tkinter import VERTICAL, RIGHT, LEFT, BOTH, TRUE, FALSE, NW, Y, X
 from utils.serviceGroup import ServiceGroup
+from utils.stylesInterface import StylesInterface
 from tkinter import Button
 
 class BottomPanels(Frame):
 
     def __init__(self, parent, *args, **kw):
-        Frame.__init__(self, parent, *args, **kw)            
+        Frame.__init__(self, parent, *args, **kw)       
+
+        self.style = StylesInterface()     
 
         # create a canvas object and a vertical scrollbar for scrolling it
         vscrollbar = Scrollbar(self, orient=VERTICAL)
         vscrollbar.pack(fill=Y, side=RIGHT, expand=FALSE)
-        canvas = Canvas(self, bd=0, bg="#616161", highlightthickness=0,
-                        yscrollcommand=vscrollbar.set)
+        canvas = Canvas(self, bd=0, bg="#616161", highlightthickness=0, yscrollcommand=vscrollbar.set)
         canvas.pack(side=LEFT, fill=BOTH, expand=TRUE)
         vscrollbar.config(command=canvas.yview)
 
@@ -48,9 +50,13 @@ class BottomPanels(Frame):
     
     def addGroups(self):
 
-        svg = ServiceGroup(self.interior)
+        svg = ServiceGroup(self.interior,style="RoundedFrame")
        
         svg.pack(fill=X ,pady=12, padx=20)
+
+        # svg = ServiceGroup(self.interior)
+       
+        # svg.pack(fill=X ,pady=12, padx=20)
         
         
 
