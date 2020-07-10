@@ -1,17 +1,15 @@
 from tkinter import Frame
 from tkinter import Scrollbar
 from tkinter import Canvas
+from tkinter import Button
 from tkinter import VERTICAL, RIGHT, LEFT, BOTH, TRUE, FALSE, NW, Y, X
 from utils.serviceGroup import ServiceGroup
 from utils.stylesInterface import StylesInterface
-from tkinter import Button
 
 class BottomPanels(Frame):
 
     def __init__(self, parent, *args, **kw):
-        Frame.__init__(self, parent, *args, **kw)       
-
-        self.style = StylesInterface()     
+        Frame.__init__(self, parent, *args, **kw)   
 
         # create a canvas object and a vertical scrollbar for scrolling it
         vscrollbar = Scrollbar(self, orient=VERTICAL)
@@ -48,15 +46,18 @@ class BottomPanels(Frame):
 
         canvas.bind('<Configure>', _configure_canvas)
     
-    def addGroups(self):
+    def AddGroupsAndServices(self,GroupsOfServices=list()):
 
-        svg = ServiceGroup(self.interior,style="RoundedFrame")
-       
-        svg.pack(fill=X ,pady=12, padx=20)
 
-        # svg = ServiceGroup(self.interior)
-       
-        # svg.pack(fill=X ,pady=12, padx=20)
+        for Group in GroupsOfServices:
+            
+            StyleServiceGroup = StylesInterface(self)
+
+            ServiceGroupObject = ServiceGroup(self.interior,style="RoundedFrame")
+
+            ServiceGroupObject.SetInformationGroup(Group[0],Group[1])
+
+            ServiceGroupObject.pack(fill=X ,pady=12, padx=20)
         
         
 
