@@ -27,6 +27,7 @@ class ServiceGroup(Frame):
     imagebtStopGroup = PhotoImage
     linhaDeSeparacao = PanedWindow
     OrganizerButtons = PanedWindow
+    StyleServiceGroup = StylesInterface
 
     def __init__(self, *args, **kw):
 

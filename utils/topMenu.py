@@ -31,7 +31,7 @@ class TopMenu(PanedWindow):
         self.imagebtAtuServiceTimeInterval = PhotoImage(file=self.resource_path("time.png"))
         self.btAtuServiceTimeInterval.config(image=self.imagebtAtuServiceTimeInterval)
 
-        self.btReloadCSV["command"] = self.Click
+        self.btReloadCSV["command"] = self.ReloadCSV
         self.btReloadCSV["bd"] = 0
         self.btReloadCSV["bg"] = "#616161"
         self.imagebtReloadCSV = PhotoImage(file=self.resource_path("reloading.png"))
@@ -49,6 +49,11 @@ class TopMenu(PanedWindow):
     def Click(self):
 
         pass
+
+    def ReloadCSV(self):
+
+        self.master.ReloadBottonPanel()
+
 
     def resource_path(self,relative_path):
         try:
