@@ -1,3 +1,7 @@
+import os
+import sys
+
+from time import sleep
 from csv import reader
 from tkinter import PanedWindow
 from tkinter import VERTICAL
@@ -8,31 +12,60 @@ from tkinter.ttk import Button
 from utils.topMenu import TopMenu
 from utils.bottomPanels import BottomPanels
 from utils.logController import logController
+from threading import Thread
 
 class TotvsService3(Tk):
 
+    log = logController
     topMenu = TopMenu   
+    timeInterval = int()
+    timeIntervalIsRun = False
     bottomPanels = BottomPanels
     linhaDeSeparacao = PanedWindow
-    log = logController
     GroupsOfServices = list()
 
     def configTotvsServiceLayout(self):
 
         self.title('Totvs Services 3')
         self.log = logController()
+        self.log.clearLog()
         
         self.Positioninthecenter()
 
         self["bg"] = "#616161"
 
-        self.iconbitmap("icons/icon.ico")
+        self.iconbitmap(self.resource_path("icon.ico"))
 
         self.LoadPainels()
 
         self.bind("<Configure>",self.callback)
 
         self.readCsv()
+
+    def iniScheduleAtuService(self):
+        
+        self.timeIntervalIsRun = True
+        self.timeInterval = 5
+
+        schedule = Thread(target=self.scheduleAtuService,args=[])
+        schedule.start()
+
+    def scheduleAtuService(self):
+
+        while (self.timeIntervalIsRun):
+            
+            self.AtuService()
+            sleep(self.timeInterval)
+
+    def AtuService(self):
+
+        for Group in self.bottomPanels.interior.winfo_children():
+
+            Group.AtuServices()
+
+    def closingApp(self):
+
+        self.timeIntervalIsRun = False
               
     def Positioninthecenter(self):
 
@@ -52,12 +85,15 @@ class TotvsService3(Tk):
 
         self.topMenu = TopMenu(self)
         self.topMenu.AdButtons()
+        self.topMenu["bg"] = "#616161"
         self.topMenu.pack()
 
         self.linhaDeSeparacao = PanedWindow()
+        self.linhaDeSeparacao["bg"] = "#9E9E9E"
         self.linhaDeSeparacao.pack()
 
         self.bottomPanels = BottomPanels(self)
+        self.bottomPanels["bg"] = "#616161"
         self.bottomPanels.pack()
 
         self.configPainels()
@@ -75,21 +111,26 @@ class TotvsService3(Tk):
 
         self.readCsv()
 
+    def resource_path(self,relative_path):
+        try:
+            base_path = sys._MEIPASS
+        except Exception:
+            base_path = os.path.abspath("./icons")
+
+        return os.path.join(base_path, relative_path)
+
         
 
     def configPainels(self):
 
         self.topMenu["height"] = self.winfo_height()*0.12
         self.topMenu["width"] = self.winfo_width()
-        self.topMenu["bg"] = "#616161"
 
         self.linhaDeSeparacao["height"] = 4
         self.linhaDeSeparacao["width"] = self.winfo_width()
-        self.linhaDeSeparacao["bg"] = "#9E9E9E"
 
         self.bottomPanels["height"] = self.winfo_height()*0.88
         self.bottomPanels["width"] = self.winfo_width()
-        self.bottomPanels["bg"] = "#616161"
 
     #Lê o CSV e cria os criar os Grupos de Serviços especificado no CSV
     def readCsv(self):

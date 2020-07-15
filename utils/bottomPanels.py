@@ -1,22 +1,27 @@
+import win32.lib.win32serviceutil
+
 from tkinter import Frame
 from tkinter import Scrollbar
 from tkinter import Canvas
 from tkinter import Button
 from tkinter import VERTICAL, RIGHT, LEFT, BOTH, TRUE, FALSE, NW, Y, X
-from utils.serviceGroup import ServiceGroup
 from utils.service import Service
-from utils.stylesInterface import StylesInterface
-from win32.lib.win32serviceutil import QueryServiceStatus
+from utils.serviceGroup import ServiceGroup
+from utils.logController import logController
+from utils.stylesInterface import StylesInterface 
 
 class BottomPanels(Frame):
 
     StyleServiceGroup = StylesInterface
     NumberStyle = int()
+    log = logController
 
     def __init__(self, parent, *args, **kw):
         Frame.__init__(self, parent, *args, **kw)   
 
         self.StyleServiceGroup = StylesInterface(self)
+
+        self.log = logController()
 
         self.NumberStyle = 0
 
@@ -72,14 +77,18 @@ class BottomPanels(Frame):
             
             ServiceGroupObject = ServiceGroup(self.interior,style="RoundedFrame"+str(self.NumberStyle))
 
+            ServiceGroupObject.ConfigComponents(len(Group[2]))
+
             ServiceGroupObject.SetInformationGroup(Group[0],Group[1])
 
             ServiceGroupObject.pack(fill=X ,pady=12, padx=20)
 
             for service in Group[2]:
 
-                serviceObject = Service(ServiceGroupObject,service[0],service[1])
-                serviceObject.pack( fill=X,padx=10,pady=7)
+                if(self.validService(service[0])):
+
+                    serviceObject = Service(ServiceGroupObject,service[0],service[1])
+                    serviceObject.pack( fill=X,padx=10,pady=7)
 
             self.NumberStyle += 1
 
@@ -90,7 +99,7 @@ class BottomPanels(Frame):
 
         try:
 
-            QueryServiceStatus(nameService)
+            win32.lib.win32serviceutil.QueryServiceStatus(nameService)
             return True
         except Exception as e:
 

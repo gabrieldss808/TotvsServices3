@@ -2,6 +2,8 @@ from tkinter import Frame
 from tkinter import Label
 from tkinter import Button
 from tkinter import X,Y,LEFT,RIGHT,BOTH,TRUE,StringVar
+from utils.logController import logController
+import win32
 
 class Service(Frame):
 
@@ -20,10 +22,24 @@ class Service(Frame):
         self.ServiceNameDisplay = serviceNameDisplay
 
         self.ServiceNameAndStatus = StringVar()
-        self.ServiceNameAndStatus.set(self.ServiceNameDisplay + "\nRunning")
+        self.ServiceNameAndStatus.set(self.ServiceNameDisplay)
 
         self.ConfigComponents()
     
+    def atuStatus(self,StringStatus="",Status=None):
+
+        self.ServiceNameAndStatus.set(StringStatus)
+
+        if ('RUNNING' in StringStatus):
+
+            self.barStatusColor["bg"] = "#34A853"
+        elif('STOPPED' in StringStatus):
+
+           self.barStatusColor["bg"] = "#EA4335"
+        else:
+
+            self.barStatusColor["bg"] = "#757575"
+
     def ConfigComponents(self):
 
         self["bd"] = 1
@@ -44,6 +60,7 @@ class Service(Frame):
         self.btServiceStop["bg"] = "#616161"
         self.btServiceStop["bd"] = 0
         self.btServiceStop["relief"] = "flat"
+        self.btServiceStop["command"] = self.StopService
         self.btServiceStop.pack(side=RIGHT,fill=BOTH)
 
         self.btServiceStart = Button(self)
@@ -54,7 +71,7 @@ class Service(Frame):
         self.btServiceStart["bg"] = "#616161"
         self.btServiceStart["bd"] = 0
         self.btServiceStart["relief"] = "flat"
-        self.btServiceStart["command"] = self.Click
+        self.btServiceStart["command"] = self.StartService
         self.btServiceStart.pack(side=RIGHT,fill=BOTH)
 
         self.barStatusColor = Frame(self)
@@ -62,6 +79,49 @@ class Service(Frame):
         self.barStatusColor["bg"] = "#34A853"
         self.barStatusColor.pack(side=RIGHT,fill=Y)
 
-    def Click(self):
+    def StartService(self):
 
-        self.barStatusColor["bg"] = "#EA4335"
+        service = win32.lib.win32serviceutil
+        StringErro = ""
+
+        try:
+
+            if(service.QueryServiceStatus(self.ServiceName)[1] == 1):
+
+                service.StartService(self.ServiceName)
+
+                StringMen = 'Iniciando: ' + self.ServiceName
+
+                logController.consoleLogAdd(logController,StringMen)
+        except Exception as e:    
+            
+            StringErro+= "###########################################################\n"
+            StringErro+= "Erro no Serviço: " + self.ServiceName + "\t" + "Erro: " + str(e) + "\n"
+            if("Acesso negado" in StringErro):
+                StringErro+="Inicie a aplicação como Administrador\n"
+            StringErro+= "###########################################################\n"
+
+            logController.consoleLogAdd(logController,StringErro)
+
+    def StopService(self):
+
+        service = win32.lib.win32serviceutil
+        StringErro = ""
+
+        try:
+            if(service.QueryServiceStatus(self.ServiceName)[1] == 4):
+                        
+                service.StopService(self.ServiceName)
+
+                StringMen = 'Parando: ' + self.ServiceName
+
+                logController.consoleLogAdd(logController,StringMen)
+        except Exception as e:    
+            
+            StringErro+= "###########################################################\n"
+            StringErro+= "Erro no Serviço: " + self.ServiceName + "\t" + "Erro: " + str(e) + "\n"
+            if("Acesso negado" in StringErro):
+                StringErro+="Inicie a aplicação como Administrador\n"
+            StringErro+= "###########################################################\n"
+
+            logController.consoleLogAdd(logController,StringErro)

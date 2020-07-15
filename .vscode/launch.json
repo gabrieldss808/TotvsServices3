@@ -12,7 +12,7 @@
 			"name": "Debug Totvs Service 3",
 			"type": "python",
 			"request": "launch",
-			"program": "TotvsService3.py",
+			"program": "TotvsService3.pyw",
 			"console": "integratedTerminal"
 		}
 	]

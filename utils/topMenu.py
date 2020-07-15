@@ -1,8 +1,9 @@
 import sys
-from os.path import abspath, join
+import os
 from tkinter import PanedWindow
 from tkinter import Button
 from tkinter import PhotoImage
+from utils.popUpAtuTime import PopUpAtuTime
 
 class TopMenu(PanedWindow):
     
@@ -12,20 +13,23 @@ class TopMenu(PanedWindow):
     imagebtAtualizaService = PhotoImage
     imagebtAtuServiceTimeInterval = PhotoImage
     imagebtReloadCSV = PhotoImage
+    PopTime = PopUpAtuTime
 
     def AdButtons(self):
+
+        self.PopTime = PopUpAtuTime()
 
         self.btAtualizaService = Button()
         self.btAtuServiceTimeInterval = Button()
         self.btReloadCSV = Button()
         
-        self.btAtualizaService["command"] = self.Click
+        self.btAtualizaService["command"] = self.refresh
         self.btAtualizaService["bd"] = 0
         self.btAtualizaService["bg"] = "#616161"
         self.imagebtAtualizaService = PhotoImage(file=self.resource_path("refresh.png"))
         self.btAtualizaService.config(image=self.imagebtAtualizaService)
       
-        self.btAtuServiceTimeInterval["command"] = self.Click
+        self.btAtuServiceTimeInterval["command"] = self.PopOpen
         self.btAtuServiceTimeInterval["bd"] = 0
         self.btAtuServiceTimeInterval["bg"] = "#616161"
         self.imagebtAtuServiceTimeInterval = PhotoImage(file=self.resource_path("time.png"))
@@ -46,19 +50,22 @@ class TopMenu(PanedWindow):
         self.add(self.btReloadCSV,padx=1, pady=1)
         
     
-    def Click(self):
+    def refresh(self):
 
-        pass
+        self.master.AtuService()
 
     def ReloadCSV(self):
 
         self.master.ReloadBottonPanel()
 
+    def PopOpen(self):
+
+        self.PopTime.mainloop()
 
     def resource_path(self,relative_path):
         try:
             base_path = sys._MEIPASS
         except Exception:
-            base_path = abspath("./icons")
+            base_path = os.path.abspath("./icons")
 
-        return join(base_path, relative_path)
+        return os.path.join(base_path, relative_path)
