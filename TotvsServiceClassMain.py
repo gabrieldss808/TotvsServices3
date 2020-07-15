@@ -27,8 +27,10 @@ class TotvsService3(Tk):
     def configTotvsServiceLayout(self):
 
         self.title('Totvs Services 3')
+
         self.log = logController()
         self.log.clearLog()
+        self.log.consoleLogAdd(self.menssageInit())
         
         self.Positioninthecenter()
 
@@ -41,6 +43,19 @@ class TotvsService3(Tk):
         self.bind("<Configure>",self.callback)
 
         self.readCsv()
+
+    def menssageInit(self):
+
+        TextIni = ''
+
+        TextIni+="##################### Totvs Service 3 ############################\n"
+        TextIni+="### Autor: Gabriel Da Silva Souza                              ###\n"
+        TextIni+="### Descrição: App para controlar serviços do Windows, voltado ###\n"
+        TextIni+="### para Serviços do Protheus                                  ###\n"
+        TextIni+="### Versão: 3.0 15/07/2020                                     ###\n"
+        TextIni+="##################################################################"
+        
+        return TextIni
 
     def iniScheduleAtuService(self):
         
@@ -100,8 +115,7 @@ class TotvsService3(Tk):
         
     def callback(self,event):
 
-        task =  Thread(target=self.configPainels,args=[])
-        task.start()
+        self.configPainels()
 
     def ReloadBottonPanel(self):
 

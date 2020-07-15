@@ -17,8 +17,6 @@ class TopMenu(PanedWindow):
 
     def AdButtons(self):
 
-        self.PopTime = PopUpAtuTime()
-
         self.btAtualizaService = Button()
         self.btAtuServiceTimeInterval = Button()
         self.btReloadCSV = Button()
@@ -60,7 +58,15 @@ class TopMenu(PanedWindow):
 
     def PopOpen(self):
 
-        self.PopTime.mainloop()
+        self.PopTime = PopUpAtuTime()
+
+        self.PopTime.master = self
+
+        self.PopTime.TimeIntervalNumber = self.master.timeInterval
+
+        self.PopTime.configureComponents()
+
+        self.PopTime.mainloop() 
 
     def resource_path(self,relative_path):
         try:
