@@ -8,7 +8,7 @@ from tkinter import VERTICAL, RIGHT, LEFT, BOTH, TRUE, FALSE, NW, Y, X
 from utils.service import Service
 from utils.serviceGroup import ServiceGroup
 from utils.logController import logController
-from utils.stylesInterface import StylesInterface 
+from utils.stylesInterface import StylesInterface
 
 class BottomPanels(Frame):
 
@@ -17,7 +17,7 @@ class BottomPanels(Frame):
     log = logController
 
     def __init__(self, parent, *args, **kw):
-        Frame.__init__(self, parent, *args, **kw)   
+        Frame.__init__(self, parent, *args, **kw)
 
         self.StyleServiceGroup = StylesInterface(self)
 
@@ -37,7 +37,7 @@ class BottomPanels(Frame):
         canvas.yview_moveto(0)
 
         # create a frame inside the canvas which will be scrolled with it
-        
+
         self.interior = interior = Frame(canvas, bg="#616161")
         interior_id = canvas.create_window(0, 0, window=interior,
                                            anchor=NW)
@@ -68,13 +68,13 @@ class BottomPanels(Frame):
         for ServiceGroup in ServiceGroups:
 
             ServiceGroup.destroy()
-    
+
     def AddGroupsAndServices(self,GroupsOfServices=list()):
 
         for Group in GroupsOfServices:
 
             self.StyleServiceGroup.CreateStyleDynamic(str(self.NumberStyle))
-            
+
             ServiceGroupObject = ServiceGroup(self.interior,style="RoundedFrame"+str(self.NumberStyle))
 
             ServiceGroupObject.ConfigComponents(len(Group[2]))
@@ -110,6 +110,3 @@ class BottomPanels(Frame):
             self.log.consoleLogAdd(StringErro)
 
             return False
-        
-        
-
