@@ -1,0 +1,12 @@
+Group;Bancos de Dados;3
+MSSQL$SQLEXPRESS;Banco Microsoft
+SQLBrowser;SQL Server Browser
+postgresql-x64-12;Banco PostGree
+Group;Protheus Base Local Principal;10
+licenseVirtual;TOTVS | License Server Virtual
+TOTVS-DBACESS;TOTVS | DBACCESS
+TOTVS-Appserver12;TOTVS | Appserver 12 - 1240
+Group;Protheus Base Local Web Servers;2
+TotvsSOA Proxy Service;TotvsSOA Proxy Service
+TOTVS-Appserver12_WS;TOTVS | Appserver WS - 1241
+TOTVS-Appserver12_WS_REST;TOTVS | Appserver WS REST - 1242
