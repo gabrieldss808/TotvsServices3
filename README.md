@@ -1,16 +1,32 @@
 # TotvsServices3
 Projeto de app para gerenciar os serviços do windows voltado para os serviços da Estrutura do Protheus.
 
-# Estou Refazendo
+# Visão Geral
 
-Não sabia usar o GitHub então ja fiz o projeto inteiro usando kivy, porém como usa open GL não da para usar em servidores o app.
-Nesse caso vou tentar fazer ele usando o Tkinter e espero conseguir obter o mesmo resultado visual.
-Segue abaixo fotos do visual que quero chegar.
+O Aplicativo controla os serviços atrávez de grupos, onde é possivel iniciar e parar os serviços:
 
-# Fotos da interface desejada
+![image](https://user-images.githubusercontent.com/45453977/87826175-ca952e00-c84e-11ea-8284-dae3ad48125c.png)
 
-![image](https://user-images.githubusercontent.com/45453977/86047737-c337ed00-ba25-11ea-83ff-dfc1d5e43d34.png)
+# Download 
 
-![image](https://user-images.githubusercontent.com/45453977/86047814-de0a6180-ba25-11ea-9650-25141f3e14a5.png)
 
-![image](https://user-images.githubusercontent.com/45453977/86047867-f9756c80-ba25-11ea-9eca-081dac3f7719.png)
+
+# How to use
+
+***Controlando os Grupos:***
+
+![startStopGroup](https://user-images.githubusercontent.com/45453977/87829049-93c21680-c854-11ea-8b39-998d0a8928d0.gif)
+
+<H3>Configurando o App: </H3>
+
+![Uso](https://user-images.githubusercontent.com/45453977/87829131-c4a24b80-c854-11ea-9ae2-580847ba31e2.gif)
+
+***Tags do CSV de configuração:***
+
+Tag Group: indica o inicio de um grupo
+
+Para configura-lá é preciso colocar da seguine maneira: 
+
+Group;Nome Descritivo do Grupo;Numero Indicando o Delay em cada passagem
+
+***Sobre o Delay:*** é numerico e indica que for iniciado um grupo ou parado, na iniciação de cada serviço ocorre um intervalo de iniciação, não permitindo iniciar ou parar os serviços todos de uma vez.(se não for informado o intervalo será de um 1 segundo).
